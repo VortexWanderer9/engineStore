@@ -2,22 +2,26 @@ import React, { useState } from 'react'
 
 function ProductList({ dataMam }) {
   const [show, setShow] = useState(true)
-
-  const showProductDetails = () =>{
+  const [details, setDetails] = useState("")
+  const showProductDetails = (id,description) =>{
     setShow(prev => !prev)
+    if(description){
+          setDetails(description)
+    }
   }
   return (
     <>
       <div >
       <div className='p-5 overflow-x-hidden'>
         <div className='grid relative w-full grid-cols-1 justify-center gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5'>
-            <div className={`fixed z-10 p-8 left-0 right-0 bottom-0 top-0 ${show ? 'hidden' : 'block'}`}>
+            <div className={`fixed  z-10 p-8 left-0 right-0 bottom-0 top-0 ${show ? 'hidden' : 'block'}`}>
           <div className="product-details flex items-center justify-center w-full h-full">
-          <div className='text-center bg-amber-300 wrap-balance w-full md:w-md'>
-            <h2>Product name</h2>
-            <span>Rating : 4.5</span>
-            <span>Price : 400</span>
-            <h2>It's sometimes argued that people after crossing 60 years old they become less </h2>
+          <div className='relative text-balance bg-black p-4 rounded w-full md:w-md'>
+            <div className='absolute cursor-pointer hover:bg-amber-200 duration-300 ease-in-out bg-amber-500 top-1 
+            rounded-full right-1' onClick={showProductDetails}>
+              <img width={20} src="./x.svg" alt="Close"  />
+            </div>
+            <h2>{details} </h2>
           </div>
         </div>
       </div>
@@ -34,14 +38,16 @@ function ProductList({ dataMam }) {
             <span className='text-cyan-700'>Rating ★ {item.rating.rate}</span>
           </div>
           <div className='w-full'>
-            <button className=' bg-white/10 hover:bg-emerald-300 transition duration-300 ease-in-out w-full py-2 rounded cursor-pointer text-lg font-bold  hover:text-white'>Order Now</button>
+            <button className=' bg-white/10 hover:bg-emerald-300 transition duration-300 ease-in-out w-full py-2
+             rounded cursor-pointer text-lg font-bold  hover:text-white'>Order Now</button>
           </div>
         
           <div className='absolute top-1 left-1 w-full text-sm font-bold cursor-pointer'>
           <div className=' bg-white/10 px-1 mt-2 w-fit rounded text-emerald-400'>
               {item.category}
           </div>
-          <div className='hover:bg-black/10 duration-300 ease-in-out top-0 right-2 rounded absolute' onClick={showProductDetails}>
+          <div className='hover:bg-black/10 duration-300 ease-in-out top-0 right-2 rounded absolute' 
+          onClick={(e) => showProductDetails(item.id, item.description)}>
             <img width={40} src="./detail.svg" alt="" />
           </div>
           </div>
