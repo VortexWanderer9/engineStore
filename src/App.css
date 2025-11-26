@@ -2,10 +2,10 @@
 
 
 .category span{
-    background-color: antiquewhite;
+    background-color: bisque;
     color: brown;
-    border-radius: 2px;
-    padding: 3px;
+    border-radius: 5px;
+    padding: 5px;
     cursor: pointer;
     font-weight: 600;
 }

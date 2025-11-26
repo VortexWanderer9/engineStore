@@ -24,9 +24,6 @@ function ProductList({ dataMam }) {
               <img width={20} src="./x.svg" alt="Close"  />
             </div>
             <div className='flex items-center gap-2'>
-              <div className="image p-5 shadow">
-                <img className='' src={details.image} alt="image" />
-              </div>
               <div className="text font-mono text-cyan-200">{details.description}</div>
             </div>
           </div>
@@ -46,7 +43,7 @@ function ProductList({ dataMam }) {
           </div>
           <div className='w-full'>
             <button className=' bg-white/10 hover:bg-emerald-300 transition duration-300 ease-in-out w-full py-2
-             rounded cursor-pointer text-lg font-bold  hover:text-white'>Order Now</button>
+             rounded cursor-pointer text-lg font-bold  hover:text-white active:scale-75'>Order Now</button>
           </div>
         
           <div className='absolute top-1 left-1 w-full text-sm font-bold cursor-pointer'>

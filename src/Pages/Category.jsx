@@ -7,7 +7,7 @@
         <>
         <div>
             <div className='p-4'>
-                <div className='category items-center justify-end flex gap-3 flex-wrap'>
+                <div className='category items-center justify-end flex gap-3 flex-wrap '>
                     <span onClick={() => setCategory("women's clothing")}>Women's clothing</span>
                     <span onClick={() => setCategory("men's clothing")}>Men's clothing</span>
                     <span onClick={() => setCategory("electronics")}>Electronics</span>
