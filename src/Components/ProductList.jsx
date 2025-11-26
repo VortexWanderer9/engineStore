@@ -2,13 +2,15 @@ import React, { useState } from 'react'
 
 function ProductList({ dataMam }) {
   const [show, setShow] = useState(true)
-  const [details, setDetails] = useState("")
-  const showProductDetails = (id,description) =>{
+  const [details, setDetails] = useState([])
+
+
+  const showProductDetails = (image,description) =>{
     setShow(prev => !prev)
-    if(description){
-          setDetails(description)
+    if(description){      
+          setDetails({description, image})
     }
-  }
+  }  
   return (
     <>
       <div >
@@ -16,12 +18,17 @@ function ProductList({ dataMam }) {
         <div className='grid relative w-full grid-cols-1 justify-center gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5'>
             <div className={`fixed  z-10 p-8 left-0 right-0 bottom-0 top-0 ${show ? 'hidden' : 'block'}`}>
           <div className="product-details flex items-center justify-center w-full h-full">
-          <div className='relative text-balance bg-black p-4 rounded w-full md:w-md'>
+          <div className='relative text-balance bg-cyan-400 p-10 rounded w-full md:w-lg'>
             <div className='absolute cursor-pointer hover:bg-amber-200 duration-300 ease-in-out bg-amber-500 top-1 
             rounded-full right-1' onClick={showProductDetails}>
               <img width={20} src="./x.svg" alt="Close"  />
             </div>
-            <h2>{details} </h2>
+            <div className='flex items-center gap-2'>
+              <div className="image p-5 shadow">
+                <img className='' src={details.image} alt="image" />
+              </div>
+              <div className="text font-mono text-cyan-200">{details.description}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -47,7 +54,7 @@ function ProductList({ dataMam }) {
               {item.category}
           </div>
           <div className='hover:bg-black/10 duration-300 ease-in-out top-0 right-2 rounded absolute' 
-          onClick={(e) => showProductDetails(item.id, item.description)}>
+          onClick={() => showProductDetails(item.image, item.description)}>
             <img width={40} src="./detail.svg" alt="" />
           </div>
           </div>

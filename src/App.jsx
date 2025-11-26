@@ -1,6 +1,10 @@
   import { useEffect, useState } from 'react';
   import './App.css'
 import ProductList from './Components/ProductList';
+import { Routes, Route } from 'react-router';
+import NabBar from './Components/NabBar';
+import Category from './Pages/Category';
+import Checkout from './Pages/Checkout';
 
   function App() {
     const [dataMam, setData] = useState([])
@@ -20,7 +24,12 @@ import ProductList from './Components/ProductList';
     }, [])
     return (
       <>
-     <ProductList dataMam = {dataMam} />
+      <NabBar />
+        <Routes>
+          <Route path='/' element = {<ProductList dataMam = {dataMam} />} />
+          <Route path ='category' element = <Category /> />
+          <Route path ='checkout' element = {<Checkout />} />
+        </Routes>
       </>
     )
   }
