@@ -27,7 +27,7 @@ import Checkout from './Pages/Checkout';
       <NabBar />
         <Routes>
           <Route path='/' element = {<ProductList dataMam = {dataMam} />} />
-          <Route path ='category' element = <Category /> />
+          <Route path ='category' element ={ <Category data = {dataMam} /> }/>
           <Route path ='checkout' element = {<Checkout />} />
         </Routes>
       </>

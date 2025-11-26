@@ -1,2 +1,11 @@
 @import "tailwindcss";
 
+
+.category span{
+    background-color: antiquewhite;
+    color: brown;
+    border-radius: 2px;
+    padding: 3px;
+    cursor: pointer;
+    font-weight: 600;
+}
