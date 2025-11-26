@@ -1,5 +1,4 @@
     import React, { useState } from 'react'
-
     function Category({data}) {
         const [category, setCategory] = useState('jewelery')
     let pep = data.filter(item => item.category === category)

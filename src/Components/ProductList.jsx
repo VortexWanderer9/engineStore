@@ -1,16 +1,22 @@
 import React, { useState } from 'react'
+import { useCheckout } from '../Context/CheckoutContext'
 
 function ProductList({ dataMam }) {
   const [show, setShow] = useState(true)
   const [details, setDetails] = useState([])
-
-
   const showProductDetails = (image,description) =>{
     setShow(prev => !prev)
     if(description){      
           setDetails({description, image})
     }
   }  
+  const {addToCart, cart} = useCheckout()
+  const addToCheckout = (id) =>{
+    if(!id) return
+    addToCart(id)
+  }
+  
+
   return (
     <>
       <div >
@@ -43,7 +49,7 @@ function ProductList({ dataMam }) {
           </div>
           <div className='w-full'>
             <button className=' bg-white/10 hover:bg-emerald-300 transition duration-300 ease-in-out w-full py-2
-             rounded cursor-pointer text-lg font-bold  hover:text-white active:scale-75'>Order Now</button>
+             rounded cursor-pointer text-lg font-bold  hover:text-white active:scale-75' onClick={() => addToCheckout(item.id)}>Order Now</button>
           </div>
         
           <div className='absolute top-1 left-1 w-full text-sm font-bold cursor-pointer'>
