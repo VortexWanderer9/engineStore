@@ -41,7 +41,7 @@ import Checkout from './Pages/Checkout';
         <Routes>
           <Route path='/' element = {<ProductList dataMam = {dataMam} />} />
           <Route path ='category' element ={ <Category data = {dataMam} /> }/>
-          <Route path ='checkout' element = {<Checkout />} />
+          <Route path ='checkout' element = {<Checkout  products = {dataMam}/>} />
         </Routes>
       </CheckoutContext.Provider>
     )
