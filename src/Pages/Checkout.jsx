@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react"
 import { useCheckout } from "../Context/CheckoutContext"
 
-function Checkout({ products }) {
+function Checkout() {
   const { cart } = useCheckout()
   const [cost, setCost] = useState()
 useEffect(() => {
     const total = cart.reduce((acc, item) => acc + item.price, 0)
-    setCost(total)
+      setCost(total)
   }, [cart])
-  
 
   return (
     <div className="p-5">

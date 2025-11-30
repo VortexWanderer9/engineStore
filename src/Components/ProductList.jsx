@@ -10,7 +10,7 @@ function ProductList({ dataMam }) {
           setDetails({description, image})
     }
   }  
-  const {addToCart, cart} = useCheckout()
+  const {addToCart} = useCheckout()
   const addToCheckout = (id, image, title, price) =>{
     if(!id) return
     addToCart(id, image, title, price)

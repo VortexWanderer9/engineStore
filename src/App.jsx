@@ -35,13 +35,25 @@ import Checkout from './Pages/Checkout';
     const removeFromCart = (id) => { 
       setCart(prev => prev.filter(item => item.id !== id))
     }
+    useEffect(() => {
+      const result = JSON.parse(localStorage.getItem("cart"))
+      if(result.length > 0){
+        setCart(result)
+      }
+    },[])
+
+    useEffect(() => {
+      if(cart.length > 0){
+        localStorage.setItem('cart', JSON.stringify(cart))
+      }
+    }, [cart])
     return (
       <CheckoutContext.Provider value={{addToCart, removeFromCart, cart, setCart, quantity, setQuantity}}>
       <NabBar />
         <Routes>
           <Route path='/' element = {<ProductList dataMam = {dataMam} />} />
           <Route path ='category' element ={ <Category data = {dataMam} /> }/>
-          <Route path ='checkout' element = {<Checkout  products = {dataMam}/>} />
+          <Route path ='checkout' element = {<Checkout />} />
         </Routes>
       </CheckoutContext.Provider>
     )
