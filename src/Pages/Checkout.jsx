@@ -3,7 +3,12 @@ import { useCheckout } from "../Context/CheckoutContext"
 
 function Checkout({ products }) {
   const { cart } = useCheckout()
-  let [checkout, setCheckout] = useState([])
+  const [cost, setCost] = useState()
+useEffect(() => {
+    const total = cart.reduce((acc, item) => acc + item.price, 0)
+    setCost(total)
+  }, [cart])
+  
 
   return (
     <div className="p-5">
@@ -43,7 +48,7 @@ function Checkout({ products }) {
 
           <div className="p-5 bg-white/5 backdrop-blur-md rounded-xl shadow-lg border border-white/10 flex flex-col gap-4">
             <p className="text-xl font-semibold text-emerald-400 text-center">
-              Total Price: <span className="text-white">$0</span>
+              Total Price: <span className="text-white">${cost ? cost : "0"}</span>
             </p>
 
             <button
