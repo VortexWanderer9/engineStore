@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { useCheckout } from '../Context/CheckoutContext'
+import { useDebounce } from 'use-debounce'
 
 function ProductList({ dataMam }) {
   const [show, setShow] = useState(true)
   const [details, setDetails] = useState([])
+  const [visible, setVisible] = useState(false)
   const showProductDetails = (image,description) =>{
     setShow(prev => !prev)
     if(description){      
@@ -11,17 +13,39 @@ function ProductList({ dataMam }) {
     }
   }  
   const {addToCart} = useCheckout()
-  const addToCheckout = (id, image, title, price) =>{
-    if(!id) return
-    addToCart(id, image, title, price)
-  }
-  
+  // Debounce to prevent multiple rapid clicks
+  // their are some issues with the debounce library so I used a simple timer instead 
 
+  let timer;
+  const addToCheckout = (id, image, title, price) =>{
+
+    if(!id) return
+
+    addToCart(id, image, title, price)
+
+    setVisible(true)
+    if(timer){
+      clearTimeout(timer)
+    }
+     timer =   setTimeout(() => {
+         setVisible(false)
+    }, 2000);
+  }  
   return (
     <>
       <div >
       <div className='p-5 overflow-x-hidden'>
         <div className='grid relative w-full grid-cols-1 justify-center gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5'>
+         <div
+  className={`${
+    visible ? 'opacity-100' : 'opacity-0 pointer-events-none'
+  } transition-opacity duration-500 ease-in-out right-6 z-2 rounded bottom-5 fixed bg-black/60 p-2`}
+>
+  <span className="font-mono text-cyan-600 font-bold">
+    <span className="text-cyan-500">✔</span> Product Added
+  </span>
+</div>
+
             <div className={`fixed  z-10 p-8 left-0 right-0 bottom-0 top-0 ${show ? 'hidden' : 'block'}`}>
           <div className="product-details flex items-center justify-center w-full h-full">
           <div className='relative text-balance bg-cyan-400 p-10 rounded w-full md:w-lg'>

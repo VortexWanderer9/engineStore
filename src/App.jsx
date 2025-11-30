@@ -29,23 +29,23 @@ import Checkout from './Pages/Checkout';
       const addToCart = (id, image, title, price) => {
         let find = cart.find(item => item.id === id)
         if (find) return
-    setCart(prev => [...prev, {id, image, title, price}])
-     console.log(cart);
+         setCart(prev => [...prev, {id, image, title, price}])
       }
     const removeFromCart = (id) => { 
       setCart(prev => prev.filter(item => item.id !== id))
     }
     useEffect(() => {
       const result = JSON.parse(localStorage.getItem("cart"))
-      if(result.length > 0){
+      if(result && result.length > 0){
         setCart(result)
       }
     },[])
 
     useEffect(() => {
-      if(cart.length > 0){
+      if(cart && cart.length > 0){
         localStorage.setItem('cart', JSON.stringify(cart))
       }
+      localStorage.clear()
     }, [cart])
     return (
       <CheckoutContext.Provider value={{addToCart, removeFromCart, cart, setCart, quantity, setQuantity}}>

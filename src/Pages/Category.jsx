@@ -1,7 +1,14 @@
     import React, { useState } from 'react'
+import { useCheckout } from '../Context/CheckoutContext'
     function Category({data}) {
-        const [category, setCategory] = useState('jewelery')
+     const [category, setCategory] = useState('jewelery')
     let pep = data.filter(item => item.category === category)
+    const {addToCart} = useCheckout()
+
+    const addToCheckout = (id, image, title, price) =>{
+        if(!id) return 
+        addToCart(id, image, title, price)
+    }
     return (
         <>
         <div>
@@ -27,8 +34,13 @@
                 <span className='text-cyan-500'>Rating ★ {item.rating.rate}</span>
             </div>
             <div className='w-full'>
-                <button className=' bg-white/10 hover:bg-emerald-300 transition duration-300 ease-in-out w-full py-2
-                rounded cursor-pointer text-lg font-bold  hover:text-white'>Order Now</button>
+                <button
+                 className=' bg-white/10 hover:bg-emerald-300 transition duration-300 ease-in-out w-full py-2
+                rounded cursor-pointer text-lg font-bold  hover:text-white
+                active:scale-90
+                '
+                onClick={() => addToCheckout(item.id, item.image, item.title, item.price)}
+                >Order Now</button>
             </div>
             </div>
             ))}
