@@ -26,14 +26,14 @@ import Checkout from './Pages/Checkout';
       fetchProducts()
     }, [])
     
-      const addToCart = (id) => {
-        let find = cart.find(item => item === id)
+      const addToCart = (id, image, title, price) => {
+        let find = cart.find(item => item.id === id)
         if (find) return
-    setCart(prev => [...prev, id])
+    setCart(prev => [...prev, {id, image, title, price}])
      console.log(cart);
       }
     const removeFromCart = (id) => { 
-      setCart(prev => prev.filter(item => item !== id))
+      setCart(prev => prev.filter(item => item.id !== id))
     }
     return (
       <CheckoutContext.Provider value={{addToCart, removeFromCart, cart, setCart, quantity, setQuantity}}>

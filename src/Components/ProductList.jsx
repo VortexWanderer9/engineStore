@@ -11,9 +11,9 @@ function ProductList({ dataMam }) {
     }
   }  
   const {addToCart, cart} = useCheckout()
-  const addToCheckout = (id) =>{
+  const addToCheckout = (id, image, title, price) =>{
     if(!id) return
-    addToCart(id)
+    addToCart(id, image, title, price)
   }
   
 
@@ -49,7 +49,7 @@ function ProductList({ dataMam }) {
           </div>
           <div className='w-full'>
             <button className=' bg-white/10 hover:bg-emerald-300 transition duration-300 ease-in-out w-full py-2
-             rounded cursor-pointer text-lg font-bold  hover:text-white active:scale-75' onClick={() => addToCheckout(item.id)}>Order Now</button>
+             rounded cursor-pointer text-lg font-bold  hover:text-white active:scale-75' onClick={() => addToCheckout(item.id, item.image, item.title, item.price)}>Order Now</button>
           </div>
         
           <div className='absolute top-1 left-1 w-full text-sm font-bold cursor-pointer'>
