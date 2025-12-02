@@ -1,18 +1,21 @@
   import { useEffect, useState } from 'react';
   import './App.css'
 import ProductList from './Components/ProductList';
-import { Routes, Route } from 'react-router';
+import { Routes, Route, Router } from 'react-router';
 import NabBar from './Components/NabBar';
 import Category from './Pages/Category';
 import CheckoutContext from './Context/CheckoutContext';
 import Checkout from './Pages/Checkout';
+import LoadingCircle from './Components/LoadingCircle';
 
   function App() {
     const [dataMam, setData] = useState([])
         const [cart, setCart] = useState([])
+        const [loading, setLoading] = useState(false)
         const [quantity, setQuantity] = useState(0)
     useEffect(() => {
       const fetchProducts = async () =>{
+        setLoading(true)
         try {
           const response = await fetch('https://fakestoreapi.com/products')
           if(!response.ok) throw new Error("Network error")
@@ -24,6 +27,7 @@ import Checkout from './Pages/Checkout';
         }
       }
       fetchProducts()
+      setLoading(false)
     }, [])
     
       const addToCart = (id, image, title, price) => {
@@ -51,7 +55,7 @@ import Checkout from './Pages/Checkout';
       <CheckoutContext.Provider value={{addToCart, removeFromCart, cart, setCart, quantity, setQuantity}}>
       <NabBar />
         <Routes>
-          <Route path='/' element = {<ProductList dataMam = {dataMam} />} />
+         {loading ?  <Route path='/' element = {<LoadingCircle /> } /> : <Route path='/' element = {<ProductList dataMam = {dataMam} />}/>}
           <Route path ='category' element ={ <Category data = {dataMam} /> }/>
           <Route path ='checkout' element = {<Checkout />} />
         </Routes>
