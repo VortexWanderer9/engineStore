@@ -14,8 +14,8 @@ import LoadingCircle from './Components/LoadingCircle';
         const [loading, setLoading] = useState(false)
         const [quantity, setQuantity] = useState(0)
     useEffect(() => {
+           setLoading(true)
       const fetchProducts = async () =>{
-        setLoading(true)
         try {
           const response = await fetch('https://fakestoreapi.com/products')
           if(!response.ok) throw new Error("Network error")
@@ -24,10 +24,12 @@ import LoadingCircle from './Components/LoadingCircle';
           
         } catch(err) {
         console.error(err);
+        } finally {
+           setLoading(false);
         }
       }
-      fetchProducts()
-      setLoading(false)
+      fetchProducts();
+
     }, [])
     
       const addToCart = (id, image, title, price) => {
@@ -55,7 +57,10 @@ import LoadingCircle from './Components/LoadingCircle';
       <CheckoutContext.Provider value={{addToCart, removeFromCart, cart, setCart, quantity, setQuantity}}>
       <NabBar />
         <Routes>
-         {loading ?  <Route path='/' element = {<LoadingCircle /> } /> : <Route path='/' element = {<ProductList dataMam = {dataMam} />}/>}
+          <Route
+            path="/"
+            element={loading ? <LoadingCircle /> : <ProductList dataMam={dataMam} />}
+          />
           <Route path ='category' element ={ <Category data = {dataMam} /> }/>
           <Route path ='checkout' element = {<Checkout />} />
         </Routes>
